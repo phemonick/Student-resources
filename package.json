@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "./node_modules/.bin/webpack",
-    "start": "node ./bundle.js",
+    "build": "node ./node_modules/babel-cli/bin/babel.js ./server -d  dist",
+    "start": "node ./dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
