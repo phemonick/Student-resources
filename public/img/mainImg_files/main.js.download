@@ -1,0 +1,347 @@
+$(document).ready(function () {
+
+    jQuery("#countrydemo").intlTelInput({
+        separateDialCode: false,
+    });
+
+    // Subscription Btn start
+    $(".subscription-plan").on("click", function () {
+        var SubcText = $('.subscription-plan span').text();
+        if (SubcText === "Monthly") {
+            $('.subscription-plan span').text('Yearly');
+            $('span.year_price').show();
+            $('span.month_price').hide();
+        } else {
+            $('.subscription-plan span').text('Monthly');
+            $('span.year_price').hide();
+            $('span.month_price').show();
+        }
+        $(this).toggleClass('active');
+    });
+    // Subscription Btn end
+
+
+    calculationPrice();
+    jQuery("#ex11").slider({
+        'tooltip': 'hide'
+    });
+    jQuery("#ex11").on("change", function (slideEvt) {
+        $('.final-price').hide();
+        $(".final-price").removeClass('active');
+        $("#month_price_" + slideEvt.value.newValue).show();
+        $("#month_price_" + slideEvt.value.newValue).addClass('active');
+        calculationPrice();
+    });
+
+    function calculationPrice() {
+        var size_price = $('.final-price.active .size_mp').text();
+        var total_price = size_price * 12;
+        if ($.isNumeric(size_price)) {
+            var year_price = (total_price - (total_price * 10 / 100)).toFixed(2);
+        } else {
+            var year_price = size_price;
+        }
+        $('.monthly-cost .month_price').text(size_price);
+        $('.monthly-cost .year_price').text(year_price);
+
+    }
+
+
+    // Modual select start
+    //var month_price = calculationPrice();
+
+    $(".module-box a").click(function () {
+        $(this).closest('.module-box').toggleClass('seleted');
+        var month_price = parseInt($('.final-price.active .size_mp').text());
+        var module_mp = 0;
+        module_mp += +month_price;
+
+        $('.module-box.seleted').each(function () {
+            var number = parseInt($(this).find('.module_mp').text(), 10);
+            module_mp += +number;
+        });
+
+        if ($.isNumeric(month_price)) {
+            var tota_price = module_mp * 12;
+            var module_yp = (tota_price - (tota_price * 10 / 100)).toFixed(2);
+
+        } else {
+            var module_mp = $('.final-price.active .size_mp').text();
+            var module_yp = (tota_price - (tota_price * 10 / 100)).toFixed(2);
+        }
+
+
+
+        $('.monthly-cost .month_price').text(module_mp);
+        $('.monthly-cost .year_price').text(module_yp);
+
+    });
+
+
+
+
+    // Modual select end
+
+
+    // Navigation start
+    $("#NavBarIcon").click(function () {
+        $("#MainNav").animate({
+            height: "toggle",
+            opacity: "toggle"
+        }, "fast");
+        $('.header-bottom ul.main-nav li').addClass('wow fadeInRight');
+    });
+    $("#NavCloseIcon").click(function () {
+        $("#MainNav").animate({
+            height: "toggle",
+            opacity: "toggle"
+        }, "fast");
+        $('.navhover').removeClass('nav-open');
+        $('#NavBackIcon').hide();
+        $('ul.main-nav li').removeClass('nav-first-hide');
+    });
+    // Navigation end
+
+    // Location JS start
+    $(".location-list a").mouseenter(function () {
+        var title = $(this).attr("title");
+        //console.log(title);
+
+        if (title == "data-testimonial-1") {
+            $('.testimonial-1, .testimonial-desc-1').fadeIn();
+            $('.testimonial-2, .testimonial-3, .testimonial-4, .testimonial-5, .testimonial-6, .testimonial-desc-2, .testimonial-desc-3, .testimonial-desc-4, .testimonial-desc-5, .testimonial-desc-6').fadeOut();
+
+        }
+        if (title == "data-testimonial-2") {
+            $('.testimonial-2, .testimonial-desc-2').fadeIn();
+            $('.testimonial-desc-1, .testimonial-desc-3, .testimonial-desc-4, .testimonial-desc-5, .testimonial-desc-6, .testimonial-1, .testimonial-3, .testimonial-4, .testimonial-5, .testimonial-6').fadeOut();
+
+        }
+        if (title == "data-testimonial-3") {
+            $('.testimonial-3, .testimonial-desc-3').fadeIn();
+            $('.testimonial-desc-2, .testimonial-desc-1, .testimonial-desc-4, .testimonial-desc-5, .testimonial-desc-6, .testimonial-2, .testimonial-1, .testimonial-4, .testimonial-5, .testimonial-6').fadeOut();
+
+        }
+        if (title == "data-testimonial-4") {
+            $('.testimonial-4, .testimonial-desc-4').fadeIn();
+            $('.testimonial-desc-2, .testimonial-desc-3, .testimonial-desc-1, .testimonial-desc-5, .testimonial-desc-6, .testimonial-2, .testimonial-3, .testimonial-1, .testimonial-5, .testimonial-6').fadeOut();
+
+        }
+        if (title == "data-testimonial-5") {
+            $('.testimonial-5, .testimonial-desc-5').fadeIn();
+            $('.testimonial-desc-2, .testimonial-desc-3, .testimonial-desc-1, .testimonial-desc-4, .testimonial-desc-6, .testimonial-2, .testimonial-3, .testimonial-1, .testimonial-4, .testimonial-6').fadeOut();
+
+        }
+        if (title == "data-testimonial-6") {
+            $('.testimonial-6, .testimonial-desc-6').fadeIn();
+            $('.testimonial-desc-2, .testimonial-desc-3, .testimonial-desc-1, .testimonial-desc-5, .testimonial-desc-4, .testimonial-2, .testimonial-3, .testimonial-1, .testimonial-5, .testimonial-4').fadeOut();
+
+        }
+    });
+    // Location JS end
+
+    // Commontab JS start
+    $('.common-tab .nav-tabs').tabCollapse();
+    // Commontab JS end
+
+    // WOW JS start
+    var wow_animation = $('.wow').length;
+    if (wow_animation > 0) {
+        var wow = new WOW({
+            boxClass: 'wow', // animated element css class (default is wow)
+            animateClass: 'animated',
+            mobile: false
+        });
+        wow.init();
+    }
+    // WOW JS end
+
+    // Multi step JS start
+    MultiStep();
+    // Multi step JS end
+
+    // Range slider start
+    RangeSlider();
+
+    // Range slider end
+
+    // Readmore JS strat
+    $(".more-block").hide();
+    $(".read-more-block").on("click", function () {
+        var txt = $(this).parents().prev().prev('.more-block').is(':visible') ? 'See 8 More' : 'Less';
+        $(".read-more-block").text(txt);
+        $(this).parents().prev().prev('.more-block').slideToggle(200);
+        //$(this).hide();
+    });
+    $(".more-content").hide();
+    $(".read-more-link").on("click", function () {
+        var txt = $(this).prev('.more-content').is(':visible') ? 'Read More' : 'Read Less';
+        $(this).text(txt);
+        $(this).prev('.more-content').slideToggle(200);
+        //$(this).hide();
+    });
+    // Readmore JS end
+
+    //Click event to scroll to top
+    $('.scrollToTop').click(function () {
+        $('html, body').animate({
+            scrollTop: 0
+        }, 800);
+        return false;
+    });
+
+
+});
+
+
+window.setTimeout(function () {
+    $('.testimonial-desc').find('p.active').addClass('test');
+    //$('.testimonial-desc p.active').removeClass("active");
+}, 1000);
+
+
+$('.testimonial-desc p').each(function (i) {
+    $('.testimonial-desc p.active').delay(i * 500).removeClass('active');
+    $('.testimonial-desc p').delay(i * 1000).addClass('active');
+    //$(this).delay(i*500).queued('toggleClass', 'flip');
+});
+
+// JS for On Resize and onScroll
+$(window).on("load resize", function (e) {
+    // All animation JS start from here
+    var WindowWidth = $(window).width();
+    if ($(window).width() > 768) {
+        var ProductCricleVar = $('#ProductCricle').length;
+        if (ProductCricleVar > 0) {
+            var controller = new ScrollMagic.Controller();
+            var ProductCricle = document.getElementById("ProductCricle");
+            var scene = new ScrollMagic.Scene({
+                    triggerElement: "#ProductCricle",
+                    duration: 500,
+                    offset: 100
+                }).on("enter", function () {
+                    // trigger animation by changing inline style.
+                    $('#ProductCricle').addClass("hover");
+                }).on("leave", function () {
+                    // trigger animation by changing inline style.
+                    $('#ProductCricle').removeClass("hover");
+                })
+                .addTo(controller);
+            //ScrollMagic End here;
+        }
+    } else {
+        //alert('else');
+    }
+    // All animation JS start from end
+    //max-lenght number
+    $(".number").keyup(function () {
+        $(".number").val(this.value.match(/[0-9]*/));
+    });
+
+
+    // ScrollTo Top start
+    if ($(this).scrollTop() > 100) {
+        $('.scrollToTop').fadeIn();
+    } else {
+        $('.scrollToTop').fadeOut();
+    }
+    // ScrollTo Top end
+
+});
+
+// JS for On Resize and onScroll
+$(window).on("load resize scroll", function (e) {
+
+    //console.log('a');
+    var WindowWidth = $(window).width();
+    if ($(window).width() > 768) {
+
+        // Nav open on hover start
+        $('ul.main-nav li.dropdown').hover(function () {
+            $('ul.main-nav li.dropdown > a').addClass('hover');
+            $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+        }, function () {
+            $('ul.main-nav li.dropdown > a').removeClass('hover');
+            $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
+        });
+        // Nav open on hover end
+
+
+        // Sticky Header JS start
+        var scroll = $(window).scrollTop();
+        var wht = $(window).height();
+
+        if (scroll >= 180) {
+            $("header").addClass("header-transition");
+        } else {
+            $("header").removeClass("header-transition");
+        }
+        if (scroll >= 250) {
+            $("header").addClass("sticky-header");
+        } else {
+            $("header").removeClass("sticky-header");
+        }
+        // Sticky Header JS End
+
+        // Mega menu start
+        $(".mega-nav-link, .navhover").on('mouseenter', function () {
+            //console.log('in');
+            $('.navhover').addClass('nav-open');
+            $('.mega-nav-link a').addClass('hover');
+        }).on('mouseleave', function () {
+            //console.log('out');
+            $('.navhover').removeClass('nav-open');
+            $('.mega-nav-link a').removeClass('hover');
+        });
+        // Mega menu end
+        // If end here
+    } else {
+        // Mega menu start
+        $(".mega-nav-link a").click(function () {
+            $('.navhover').addClass('nav-open');
+            $('#NavBackIcon').show();
+            $('ul.main-nav li').addClass('nav-first-hide');
+        });
+        $("#NavBackIcon").click(function () {
+            $('.navhover').removeClass('nav-open');
+            $('#NavBackIcon').hide();
+            $('ul.main-nav li').removeClass('nav-first-hide');
+        });
+        // Mega menu end
+        // Else end
+    }
+
+});
+
+//Multi Step Model
+function MultiStep() {
+    sendEvent = function (sel, step) {
+        $(sel).trigger('next.m.' + step);
+    }
+}
+// Range slider start    
+function RangeSlider() {
+    var press_slider = $('#ex11').length;
+    if (press_slider > 0) {
+        var slider = $("#ex11").slider({
+            step: 500,
+            min: 0,
+            max: 2000,
+
+        });
+    }
+}
+
+
+//Other Testimonial Slider
+var owl_slider = $('.owl-carousel').length;
+if (owl_slider > 0) {
+    $('.owl-carousel').owlCarousel({
+        loop: true,
+        margin: 0,
+        items: 1,
+        autoplay: true,
+        autoplayTimeout: 5000
+
+    });
+}
