@@ -9,25 +9,32 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+          allowNull: false,
       },
-      studentId: {
-        type: Sequelize.INTEGER
+      matricId: {
+        type: Sequelize.INTEGER,
+          allowNull: false,
       },
       sex: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+          allowNull: false,
       },
       class: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+          allowNull: false,
       },
       department: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+          allowNull: false,
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+          allowNull: false,
       },
       phone: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+          allowNull: false,
       },
       createdAt: {
         allowNull: false,

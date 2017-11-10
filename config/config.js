@@ -1,4 +1,4 @@
-module.exports={
+module.exports=
 {
   "development": {
     "username": "postgres",
@@ -21,5 +21,4 @@ module.exports={
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
-}
 }

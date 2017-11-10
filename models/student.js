@@ -1,13 +1,40 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Student = sequelize.define('Student', {
-    name: DataTypes.STRING,
-    studentId: DataTypes.INTEGER,
-    sex: DataTypes.STRING,
-    class: DataTypes.STRING,
-    department: DataTypes.STRING,
-    email: DataTypes.STRING,
-    phone: DataTypes.INTEGER
+    name: {
+    type:  DataTypes.STRING,
+     allowNull: false,
+     validate: {
+       notEmpty: {
+         args: true,
+         message: 'input name'
+       }
+     }
+   },
+    matricId:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    sex: {
+      DataTypes.STRING,
+      allowNull: false,
+    },
+    class: {
+      DataTypes.STRING,
+      allowNull: false,
+    },
+    department: {
+      DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      DataTypes.STRING,
+      allowNull: false,
+    },
+    phone: {
+      DataTypes.INTEGER,
+      allowNull: false,
+    },
   }, {
     classMethods: {
       associate: function(models) {
@@ -17,3 +44,4 @@ module.exports = (sequelize, DataTypes) => {
   });
   return Student;
 };
+shilekunpelu1$
