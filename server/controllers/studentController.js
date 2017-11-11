@@ -3,6 +3,7 @@ import db from '../models';
 const student = db.Student;
 
 class StudentController {
+
   static createResource(req, res){
     const {name, matricId, sex, department, email, phone, level } = req.body;
     student.
@@ -24,6 +25,19 @@ class StudentController {
         res.status(500).send(err)
       })
 
+  }
+  static readResource(req, res){
+    student.findAll()
+    .then((allResource) => {
+      if(!allResource){
+        return res.status(404).send('no resource found');
+
+      }
+      return res.status(200).send({
+        message: 'success',
+        result: allResource
+      })
+    })
   }
 }
 
