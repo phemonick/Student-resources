@@ -26,12 +26,11 @@ class StudentController {
       })
 
   }
-  static readResource(req, res){
+  static listResource(req, res){
     student.findAll()
     .then((allResource) => {
       if(!allResource){
         return res.status(404).send('no resource found');
-
       }
       return res.status(200).send({
         message: 'success',
