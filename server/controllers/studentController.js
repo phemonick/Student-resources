@@ -37,6 +37,7 @@ class StudentController {
         result: allResource
       })
     })
+    .catch((err) => res.status(500).send(err))
   }
 
   static getResource(req, res){
@@ -54,6 +55,59 @@ class StudentController {
         })
       }
     })
+    .catch((err) => res.status(500).send(err))
+  }
+  static updateResource(req, res){
+    const { id, name, matricId, sex, department, email, phone, level } = req.body;
+    student.findById(id)
+    .then((resource) => {
+      if(!resource){
+        return res.status(404).send({
+          message: 'failure',
+          result: 'student not found'
+        })
+      }
+      student.update({
+        name, matricId,
+         sex, department,
+          email, phone, level
+      }, {
+        where: {
+          id
+        }
+      })
+      .then((resource) => {
+        return res.status(200).send({
+          message: 'success',
+          result: resource
+        })
+      })
+    }).catch((err) => res.status(500).send(err))
+  }
+
+  static deleteResource(req, res){
+    const {id} = req.body;
+
+    student.findById(id)
+    .then((resource) => {
+      if(!resource){
+        return res.status(404).send({
+          message: 'cant be deleted',
+        })
+      }
+      student.destroy({
+        where: {
+          id
+        }
+      })
+      .then((resource) => {
+        res.status(200).json({
+          message: 'successfully deleted',
+          result: resource,
+        })
+      })
+    })
+    .catch(err => res.status(500).send(err));
   }
 }
 
