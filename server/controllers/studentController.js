@@ -39,7 +39,7 @@ class StudentController {
     })
   }
 
-  static getStudent(req, res){
+  static getResource(req, res){
     const { id } = req.params;
     student.findById(id)
     .then((resource) => {
