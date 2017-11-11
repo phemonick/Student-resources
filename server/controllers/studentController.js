@@ -38,6 +38,23 @@ class StudentController {
       })
     })
   }
+
+  static getStudent(req, res){
+    const { id } = req.params;
+    student.findById(id)
+    .then((resource) => {
+      if(!resource){
+        return res.status(400).send({
+          message: 'failure',
+          result: 'user not found'
+        })
+        return res.status(200).send({
+          message: success,
+          result: resource
+        })
+      }
+    })
+  }
 }
 
 export default StudentController;
