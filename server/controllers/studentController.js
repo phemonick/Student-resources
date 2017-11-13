@@ -18,7 +18,7 @@ class StudentController {
 				console.log('result is '+resource.get({
 					plain: true,
 				}))
-				return res.status(200).send(resource)
+				return res.status(200).send('created')
 			}
 			).catch((err) => {
 				res.status(500).send(err)
@@ -103,7 +103,6 @@ class StudentController {
 					.then((resource) => {
 						res.status(200).json({
 							message: 'successfully deleted',
-							result: resource,
 						})
 					})
 			})
